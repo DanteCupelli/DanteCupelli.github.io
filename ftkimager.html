@@ -83,22 +83,53 @@ body {
       <h2>Access Data's FTK Imager</h2>
 
 
-      <p dir="ltr" style="line-height:1.38;text-indent: 36pt;margin-top:0pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Times New Roman';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Access Data&rsquo;s FTK Imager is a Windows GUI based tool that helps a user analyze disk images. This tool provides a simple user interface to navigate the directory structure of a disk image. In terms of complexity, this tool is very easy to use. The caveat is that users need to know what they are looking for within the image. Also, it is important to keep in mind that directory structures vary between android devices. It may take a user some additional research about the specific device an image came from before they can begin analyzing the image.</span></p>
-      <p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Times New Roman';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">When we first load the tool we get a basic window. The first thing we want to do is add an evidence item. For our testing, we will use an image file. Upon adding the evidence item we are given an evidence tree that contains the disk image. If we expand the disk image we see all the partitions on the disk. This Samsung Galaxy S5 had a total of 25 partitions on the disk. As well there is unpartitioned space. Here is where the software&rsquo;s usefulness begins to break down. We now have 25 partitions, but as an end-user we do not know where to begin looking for information.</span></p>
+      <p dir="ltr" style="line-height:1.38;text-indent: 36pt;margin-top:0pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Access Data&rsquo;s FTK Imager is a Windows GUI based tool that helps a user analyze disk images. This tool provides a simple user interface to navigate the directory structure of a disk image. In terms of complexity, this tool is very easy to use. The caveat is that users need to know what they are looking for within the image. Also, it is important to keep in mind that directory structures vary between android devices. It may take a user some additional research about the specific device an image came from before they can begin analyzing the image.</span></p>
+      <p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">When we first load the tool we get a basic window. The first thing we want to do is add an evidence item. For our testing, we will use an image file. Upon adding the evidence item we are given an evidence tree that contains the disk image. If we expand the disk image we see all the partitions on the disk. This Samsung Galaxy S5 had a total of 25 partitions on the disk. As well there is unpartitioned space. Here is where the software&rsquo;s usefulness begins to break down. We now have 25 partitions, but as an end-user we do not know where to begin looking for information.</span></p>
 
 
 
 
       <h5>Figure 3.0: Disk Partitions</h5>
-      <img src="/images/image16.png">
+      <img src="/images/image19.png">
+
+
+    <p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">One partition most Android phones have is userdata. We see that this also exists in this disk image. Chances are we&rsquo;ll find some good information within the userdata partition. So what we will go ahead and do is expand the userdata partition within the evidence tree. Now within the partition, we see an EXT4 filesystem. Further expanding the filesystem we see a root directory. Now within the root directory, we are presented with many more subdirectories. As an end-user, we can either perform external research to figure out where information is stored, or infer based on directory names.</span></p>
+
+
+    <h5>Figure 3.1: Userdata partition containing EXT4 filesystem</h5>
+    <img src="/images/image4.png">
+
+
+    <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">First, we will take a look at the /root/media/0 directory. Inside this directory, we find more directories each with distinguishable names. When we take a look at /root/media/0/documents. Inside this directory, we find a file named Final Project(2).pdf. What&rsquo;s cool is that we can now either view the document from inside AccessData&rsquo;s FTK Imager, or we can export the file. Within /root/media/0 the other directories will divulge other sensitive user data, like images.</span></p>
+
+
+    <h5>Figure 3.2: Viewing the File</h5>
+    <img src="/images/image12.png">
+
+
+    <h5>Figure 3.3: Exporting the File</h5>
+    <img src="/images/image10.png">
 
 
 
+    <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">To find some data from non-user generated files. Going back to the root directory we see another directory misc. If we open misc we see more directories again with distinguishable names. The wifi directory looks like a good place to find non-user generated data. Opening up the wifi directory we are presented with many files. The wpa_supplicant.conf file provides us with an SSID and a hashed PSK. With a little extra work, a user might be able to brute force this PSK using hashcat (a hash cracking tool). However, this provides another layer of complexity and expected knowledge for the user.</span></p>
 
 
+    <h5>Figure 3.4: Viewing wpa_supplicant.conf File</h5>
+    <img src="/images/image3.png">
 
 
+    <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Furthermore, if we navigate to the /root/data directory we can find various directories that contain database files. Specifically, the contacts database file can be located here. With this disk image, we are not able to read the contacts database. This is because the database was in an open state when the disk image was taken. We know this because of temporary db files that are also present. However, &nbsp;we were able to successfully open the calendars database file. This file was located at /root/data/com.android.providers.calendar/databases. &nbsp;By exporting calendar.db and reading it with sqlite we were able to find the email address digital.forensics.8@gmail.com associated with the calendar.</span></p>
 
+
+    <h5>Figure 3.5: Directory with calendar Database file</h5>
+    <img src="/images/image18.png">
+
+    <h5>Figure 3.6: Opening the Database</h5>
+    <img src="/images/image2.png">
+
+
+    <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">While FTK Imager provides a nice interface for Windows users to manually examine disk images. It is evident that users would be required to conduct further research or use extra tools to gather information.</span></p>
 
 
 
