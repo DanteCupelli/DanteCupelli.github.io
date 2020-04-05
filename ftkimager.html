@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 25px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 100%;
+}
+
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+
+
+
+<div class="row">
+  <div class="leftcolumn">
+
+
+<!--  ########################### Setting up the environment ######################## -->
+
+    <div class="card">
+      <h2>Setting Up the Environment</h2>
+
+
+      <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">With user access, the main method of obtaining our mobile device image is to use adb to perform CLI commands using&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">&lsquo;adb.exe&rsquo;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">. Once the mobile device is connected to the forensics machine, it will be recognized as a device with a subsequent ID. This can be accomplished using the&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">adb.exe devices&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">command. Now that the device is recognized, we obtain shell access by&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">adb.exe -d shell.</span></p>
+
+      <h5>Figure 1.0: Android Debug Bridge and phone ID. </h5>
+
+      <img src="/images/image6.png">
+      <img src="/images/image21.png">
+
+
+            <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><br></p>
+      <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">A command like&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">cat /proc/partitions&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">can be used to view and determine which partition we can utilize. For our image and other forensic investigators to analyze the phone, the disk is required. In most cases, mmcblk0 will be the internal storage disk.&nbsp;</span></p>
+      <ul>
+        <li dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Command to view MMC Partitions&nbsp;</span><span style="color: rgb(184, 49, 47);"><span style='font-size: 11pt; font-family: "Courier New"; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;'>ls -l /dev/block/platform/msm_sdcc.1/by-name/&nbsp;</span></span></li>
+        <li dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;;font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Command to view&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">EMC Devices&nbsp;</span><span style='font-size: 11pt; font-family: "Courier New"; color: rgb(184, 49, 47); background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;'>cat /proc/emmc</span><span style="font-size: 11pt; font-family: &quot;Courier New&quot;; color: rgb(184, 49, 47); background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"></span></li>
+      </ul>
+
+
+
+
+      <h5>Figure 1.1: Android Debug Bridge and phone ID.  </h5>
+      <img src="/images/image16.png">
+
+
+
+            <p><br></p>
+      <p><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">For all parties to examine the entire device, we selected&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">mmcblk0</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">, the phone&rsquo;s internal disk. Rather than utilizing adb pull, we utilized Busybox, a software suite apk that provides several Unix utilities in a single executable file. With a simple tool like netcat, we were able to obtain our image file with a simple dd command over TCP. In our instance, it was with port 8888.</span></p>
+
+
+
+
+
+      <h5>Figure 1.2: Creating the image over netcat  </h5>
+
+      <img src="/images/image1.png">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="card">
+
+      <p> Cick <a href="https://dantecupelli.github.io">here</a> to go back. </p>
+    </div>
+
+  </div>
+
+
+
+<!--  ################################################################################ -->
+
+
+</body>
+</html>
