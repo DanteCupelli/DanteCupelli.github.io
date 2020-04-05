@@ -80,44 +80,52 @@ body {
 <!--  ########################### Setting up the environment ######################## -->
 
     <div class="card">
-      <h2>Setting Up the Environment</h2>
+      <h2>Manual Analysis With CLI <h2>
 
 
-      <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">With user access, the main method of obtaining our mobile device image is to use adb to perform CLI commands using&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">&lsquo;adb.exe&rsquo;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">. Once the mobile device is connected to the forensics machine, it will be recognized as a device with a subsequent ID. This can be accomplished using the&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">adb.exe devices&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">command. Now that the device is recognized, we obtain shell access by&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">adb.exe -d shell.</span></p>
 
-      <h5>Figure 1.0: Android Debug Bridge and phone ID. </h5>
-
-      <img src="/images/image6.png">
-      <img src="/images/image21.png">
-
-
-            <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><br></p>
-      <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">A command like&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">cat /proc/partitions&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">can be used to view and determine which partition we can utilize. For our image and other forensic investigators to analyze the phone, the disk is required. In most cases, mmcblk0 will be the internal storage disk.&nbsp;</span></p>
-      <ul>
-        <li dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Command to view MMC Partitions&nbsp;</span><span style="color: rgb(184, 49, 47);"><span style='font-size: 11pt; font-family: "Courier New"; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;'>ls -l /dev/block/platform/msm_sdcc.1/by-name/&nbsp;</span></span></li>
-        <li dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;;font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Command to view&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">EMC Devices&nbsp;</span><span style='font-size: 11pt; font-family: "Courier New"; color: rgb(184, 49, 47); background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;'>cat /proc/emmc</span><span style="font-size: 11pt; font-family: &quot;Courier New&quot;; color: rgb(184, 49, 47); background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"></span></li>
-      </ul>
+        <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">A tool or approach towards this problem was to see what we could learn from manually combing through the data of the phone using a hexdump software like ghex. Although this method is long and can be extremely tedious it would be essential if there was some hidden data in a host protected area or possible data hidden within another file. Using the mmls command we can see the number of partitions on the extracted image.</span></p>
 
 
 
 
-      <h5>Figure 1.1: Android Debug Bridge and phone ID.  </h5>
-      <img src="/images/image16.png">
+      <h5>Figure 2.0: ‘MMLS’ of the mobile device </h5>
+
+      <img src="/images/image20.png">
+
+
+      <p><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">The most interesting partition on this device is the userdata location. Using the DD command we can just take the last two partitions and do some file system analysis. Using the fsstat command we can see what type of file system we are dealing with.</span></p>
+
+      <h5>Figure 2.1: ‘FSSTAT’ of the mobile device</h5>
+
+      <img src="/images/image15.png">
 
 
 
-            <p><br></p>
-      <p><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">For all parties to examine the entire device, we selected&nbsp;</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">mmcblk0</span><span style="font-size:11pt;font-family:'Arial';color:#0e101a;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">, the phone&rsquo;s internal disk. Rather than utilizing adb pull, we utilized Busybox, a software suite apk that provides several Unix utilities in a single executable file. With a simple tool like netcat, we were able to obtain our image file with a simple dd command over TCP. In our instance, it was with port 8888.</span></p>
+          <p dir="ltr" style="line-height:1.38;text-indent: 36pt;margin-top:0pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">This partition is a Linux based OS which makes sense due to it being an android device. We also now know that it is specifically an EXT4 file system. This will help us when we start to analyze the raw hex data in ghex. To know where data is we need to understand the file system we will be looking into. For this extremely basic forensic activity, we will mostly be doing recon to find out if there is any actual user data on the device.</span></p>
+    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:'Arial';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">There are some ways of effectively looking for data in hex dumps and one of those ways is to search the image for popular file types to find user data. For example, in this case, we were able to search the image for mp3 file extensions and found one of the user&#39;s music files. Now what this provides to us in terms of investigation is not much but we can at least confirm that there is data still on the device.</span></p>
+
+    <h5>Figure 2.2: MP3 file on the mobile device<h5>
+
+    <img src="/images/image9.png">
 
 
 
 
-
-      <h5>Figure 1.2: Creating the image over netcat  </h5>
-
-      <img src="/images/image1.png">
+    <p><span style="font-size:11pt;font-family:'Times New Roman';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Now that we confirmed that there is some data on the device It would be best to continue to scrape along looking for identifiable or personal information. We were able to find a personal email on the hex dump shown below. This metadata shows the sender&#39;s and recipient&#39;s email as well as the subject line. However, I believe due to the encryption built into email protocols we are not able to see the full message. Although we were able to find some identifiable data just from a hex dump it became increasingly clear that this is not the most efficient way to search the phone for data. There are many different types of software that do this kind of manual work for us. It also became clear that a lot of this data is not going to be readable in ASCII.</span></p>
 
 
+    <h5>Figure 2.4: Metadata on Mobile Device<h5>
+
+    <img src="/images/image13.png">
+
+
+
+    <p><span style="font-size:11pt;font-family:'Times New Roman';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">When combing through the data most of the data on android devices is actually stored in SQL tables for later access by the file system. For example below we found what looks to be SQL code for creating and calling on tables for each message sent.&nbsp;</span></p>
+
+    <h5>Figure 2.5: SQL Database<h5>
+
+    <img src="/images/image17.png">
 
 
 
